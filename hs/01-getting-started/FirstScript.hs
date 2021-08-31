@@ -1,4 +1,7 @@
-module H01 where
+module FirstScript where  -- one module per file
+
+--  import Module1
+--  import Module2
 
 -- comment that occupies the part of the line to the right of the symbol
 
