@@ -49,7 +49,7 @@ name :: type
 name = expression
 
 ### function composition
-f1 . f2 -- output of f1 becomes the input of f2  
+f1 . f2 -- output of f2 becomes the input of f1  
 combine functions (-> create new function)
 
 
