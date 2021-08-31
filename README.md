@@ -48,7 +48,7 @@ model/represent objects in specific problem domains
 name :: type  
 name = expression
 
-###function composition
+### function composition
 f1 . f2 -- output of f1 becomes the input of f2  
 combine functions (-> create new function)
 
