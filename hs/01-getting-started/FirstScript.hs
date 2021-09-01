@@ -6,7 +6,7 @@ module FirstScript where  -- one module per file
 -- comment that occupies the part of the line to the right of the symbol
 
 {-
-nested comment (arbitrary length
+nested comment (arbitrary length)
 
 GHCi cmds:
 :l      load module
