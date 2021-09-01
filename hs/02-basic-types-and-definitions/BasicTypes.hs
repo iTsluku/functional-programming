@@ -13,7 +13,7 @@ String          --  Strings of letters
 -}
 
 {- 
-#####   Bool    ##### 
+#####   The Booleans: Bool    ##### 
 
 &&  and
 ||  or  (inclusive)
@@ -63,4 +63,54 @@ prop_myAnd :: Bool -> Bool -> Bool
 prop_myAnd x y =
     myAnd x y == (x && y)   -- brackets!
 
+{-
+#####   The integers: Integer and Int   #####
 
+whole numbers, positive, zero and negative (used for counting)
+
+arithmetics using:
++       sum
+*       product
+^       power
+-       difference (-a (präfix), a-b (infix))
+div     whole number division (div 3 2 = 1, 3 `div` 2 = 1 (using ``-backquotes))
+mod     remainder from whole number division (mod 3 2 = 1, 3 `mod` 2 = 1)
+abs     absolute value of an integer
+negate  function to change a sign of an integer
+
+negative literals
+negate (-34) = 34   --  enclose with paranthesis (else compiler error, because of infix operator confusion )
+(negate - 34 = error)    
+
+relational operators
+>, >=, ==, /=, <=, <
+
+Int: integers in fixed aount of space -> finite range of of integers
+maxBound :: Int = 9223372036854775807
+
+convert Int, Integer
+fromInteger :: Integer -> Int
+toInteger   :: Int -> Integer
+
+-}
+
+threeEquals :: Integer -> Integer -> Integer -> Bool
+threeEquals a b c = (a == b) && (b == c)
+
+notThreeEquals :: Integer -> Integer -> Integer -> Bool
+notThreeEquals a b c = not ((a == b) && (b == c))
+
+--  quickCheck prop_threeEquals = +++ OK, passed 100 tests.
+prop_threeEquals :: Integer -> Integer -> Integer -> Bool
+prop_threeEquals a b c =
+    threeEquals a b c /= notThreeEquals a b c 
+
+threeDifferent :: Integer -> Integer -> Integer -> Bool
+threeDifferent a b c = not ((a == b) || (b == c) || (a == c))
+
+fourEqual :: Integer -> Integer -> Integer -> Integer -> Bool
+fourEqual a b c d = (threeEquals a b c) && (c == d) 
+
+prop_fourEqual :: Integer -> Integer -> Integer -> Integer -> Bool
+prop_fourEqual a b c d =
+    fourEqual a b c d == ((a == b) && (b == c) && (c == d))
