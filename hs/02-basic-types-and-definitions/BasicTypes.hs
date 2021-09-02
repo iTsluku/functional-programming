@@ -162,12 +162,69 @@ myMaxThree a b c
 
 --  myMaxThree 6 (3+7) 2    --  (3+7) will only be calculated once (lazy evaluation - haskell is lazy!)
 
+--  redefine prelude functions
+--  import Prelude hiding (max,min)
+
 {-
-#####   Characters: Char ;and Strings: String   #####
+#####   Characters: Char    #####
+
+literal characters are written in single quotes: 't'
+'\t'    tab
+'\n'    newline
+'\\'    backslash (\)
+'\''    single quote (')
+'\"'    double quote (")
+
+ASCII = characters as integers
+'A' to 'Z'  --  65 to 90
+'a' to 'z'  --  97 to 122
+
+e.g. code 9: '\9' = '\t
+
+fromEnum :: Char -> Int     --  fromEnum 'a' = 97
+toEnum   :: Int  -> Char
 
 -}
 
+offset :: Int
+offset = fromEnum 'A' - fromEnum 'a'
 
+--  toUpper 'c' = 'C'
+toUpper :: Char -> Char
+toUpper c = toEnum (fromEnum c + offset)
+
+--  digits 0-9  --  codes 48-57
+isDigit :: Char -> Bool
+isDigit c = ('0' <= c) && (c <= '9')
+
+charToNum :: Char -> Int
+charToNum c
+    | isDigit c = fromEnum c - (fromEnum '\48')   --  offset
+    | otherwise = 0
+
+{-
+#####   Strings: String    #####
+
+String :: [Char]    --  sequence of strings of characters, between double quotes ("test")
+
+--  resolves escape characters and loses double quotes
+putStr :: String -> IO ()   --  performs output operation
+
+++  join operator   --  (++) :: [a] -> [a] -> [a]   --  "lo"++"l" = "lol"
+
+show        value to String
+read        String to value     --  add type for output
+
+--  (read "0.1") :: Float
+-}
+
+onThreeLines :: String -> String -> String -> String
+onThreeLines a b c = a ++ b ++ c 
+
+--  quickCheck prop_concatThreeStrings = +++ OK, passed 100 tests.
+prop_concatThreeStrings :: String -> String -> String -> Bool
+prop_concatThreeStrings a b c =
+    length (onThreeLines a b c) == (length a) + (length b) + (length c)
 
 {-
 #####   Floating-point numbers: Float   #####
