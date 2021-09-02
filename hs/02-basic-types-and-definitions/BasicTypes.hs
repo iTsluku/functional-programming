@@ -114,3 +114,76 @@ fourEqual a b c d = (threeEquals a b c) && (c == d)
 prop_fourEqual :: Integer -> Integer -> Integer -> Integer -> Bool
 prop_fourEqual a b c d =
     fourEqual a b c d == ((a == b) && (b == c) && (c == d))
+
+{-
+#####   Overloading #####
+
+t -> t -> Bool  --  if the type t carries an equality   --  t -> t meaning both have the same type (t)
+(==) :: Eq a => a -> a -> Bool)
+2 == True = error   --  no point in comparing values of different types (will never be equal)
+
+#####   Guards  #####
+
+give alternatives in the definition of functions
+Boolean expressions  -   express various cases
+
+conditional expression
+if <condition> then <m> else <m>
+
+-}
+
+myMax :: Integer -> Integer -> Integer
+myMax a b 
+  | a >= b    = a   --  | guard1
+  | otherwise = b   --  | guard2  --  <otherwise> is not compulsory (required)
+
+myMax2 :: Integer -> Integer -> Integer
+myMax2 a b 
+    = if a >= b then a else b
+
+--  quickCheck prop_compareMax
+prop_compareMax :: Integer -> Integer -> Bool
+prop_compareMax a b =
+    myMax a b == myMax2 a b
+
+prop_max1, prop_max2 :: Integer -> Integer -> Bool
+
+prop_max1 a b =
+    a <= max a b && b <= max a b
+
+prop_max2 a b =
+    a == max a b || b == max a b
+
+myMaxThree :: Integer -> Integer -> Integer -> Integer
+myMaxThree a b c 
+    | a >= b && a >= c = a
+    | b >= c          = b
+    | otherwise       = c
+
+--  myMaxThree 6 (3+7) 2    --  (3+7) will only be calculated once (lazy evaluation - haskell is lazy!)
+
+{-
+#####   Characters: Char ;and Strings: String   #####
+
+-}
+
+
+
+{-
+#####   Floating-point numbers: Float   #####
+
+-}
+
+
+
+{-
+#####   Syntax  #####
+
+
+#####   Names   #####
+
+
+#####   Operators   #####
+
+
+-}
