@@ -229,18 +229,106 @@ prop_concatThreeStrings a b c =
 {-
 #####   Floating-point numbers: Float   #####
 
+numbers with fractional parts
+
+haskel internal: fixed amount of space allocated to representing each Float
+-> not all fractions can be represented
+(Double for greater precision)
+(Fractional for fukk-precision fractions)
+
+0.11 :: Float
+
+floation point, because the position of the decimal point is not the same for all Floats.
+depending on the particular number, more of the space can be used to store integer,
+or the fractional part.
+
+Non-numerical results
+
+NaN         not a number
+Infinity    infinite
+
+converting integers to floating-point numbers
+fromIntegral (floor 1.2) + 3.2 = 4.2
+
++,-,*,/,^
+**                  x**y == x^y
+abs
+acos, asin, atan    inverse
+
+ceiling             fraction to int, rounding up
+floor               fraction to int, rounding down
+round               fraction to int, rounding to closest integer
+
+cos, sin, tan
+exp                 power of e
+
+fromInteger         Integer -> Float
+fromIntegral        Int -> Float
+
+log                 base e
+logBase             arbitrary base (1st arg)
+
+negate              chnage sign of number
+pi                  constant pi
+signum              1.0 , 0.0 or -1.0 (arg positive, zero or negative)
+
+sqrt                (positive) square root
+
 -}
 
+epsEnv :: Float
+epsEnv = 0.000001
+
+isZero :: Float -> Bool
+isZero x = abs x <= epsEnv
+
+prop_isZero :: Float -> Bool
+prop_isZero x =
+    isZero x == (((x <= epsEnv) && (x >= 0)) || ((x >= epsEnv) && (x <= 0)))
 
 
 {-
 #####   Syntax  #####
-
+offside-rule: write top-level definitions starting at the öeft-hand side of the page,
+              within the script indent the start of each definition by a single 'tab'
+;   'end' symbol    -   for one-liners
 
 #####   Names   #####
 
+reserved words:
+case class data default deriving do else if import in infix
+infixl infixr instance let module newtype of then type where
+
+CamelCase: maxThree instead of maxthree or max_three
+
+when intending to redefine a name, that is already defined
+-> hide that name on import!
+-- import Prelude hiding (max,min)
+
+haskell is built on top of the Unicode character description standard
+Unicode character: 16bit sequence
+\uhhhh (where h equals 4bit hexadecimal)
 
 #####   Operators   #####
 
+infix functions: written between their arguments
+
+associatives, binding powers ...
+
+enclosing the operator in parenthesis allows:
+(+) 2 3 = 2 + 3
+--  this conversion is needed for functions as arguments for other functions!
+
+max 2 3 = 2 `max` 3     --  using backquotes
+--  can make functions involving binary or two-argument functions easier to
+--  read.
+
+operator names are built from the operator symbols which include the ASCII symbols
+! # $ % & * + . / < = > ? \ ^ |  : - ~
+
+(&&&) :: ...
+x &&& y
+    | ...
+    | ...   
 
 -}
