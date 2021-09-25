@@ -53,6 +53,6 @@ f1 . f2 -- output of f2 becomes the input of f1
 combine functions (-> create new function)
 
 
-## coding conventions
-+ names for functions begin with a small letter
+### coding conventions
++ function names begin with a small letter
 + type names begin with a capital letter
