@@ -38,7 +38,7 @@ testsMax = TestList [testMax1,testMax2,testMax3,testMax4]
 --  and the general case
 
 --  Int is a fixed-size representation of integers, if the number becomes
---  big enough, it wraps around "the negative" -> use Integer for "real integers".
+--  big enough, it wraps around into the "negative" -> use Integer for "real integers".
 
 allEqual :: Integer -> Integer -> Integer -> Bool
 allEqual a b c = a == b && b == c
