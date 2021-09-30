@@ -101,3 +101,34 @@ orderTriple (x, y, z)
 prop_addPair :: (Integer, Integer) -> Bool
 prop_addPair (x, y) =
   addPair (x, y) == addPair2 (x, y) && addPair2 (x, y) == addPair3 (x, y)
+
+--  product types
+data People =
+  Person Name Age
+  deriving (Eq, Show) --  derive definitions like equality using "deriving"
+
+type Name = String
+
+type Age = Int
+
+--  showPerson (Person "Andreas" 24) = "Andreas -- 24"
+--  binary constructor - takes 2 values to form a value of type Person
+showPerson :: People -> String
+showPerson (Person st n) = st ++ " -- " ++ show n --  show gives textual form of an Int
+
+--  :t Person = Person :: Name -> Age -> People
+data Shape
+  = Circle Float
+  | Rectangle Float Float
+  deriving (Eq, Ord, Show)
+
+isRound :: Shape -> Bool
+isRound (Circle _) = True
+isRound (Rectangle _ _) = False
+
+area :: Shape -> Float
+area (Circle r) = pi * r ** 2
+area (Rectangle h w) = h * w
+--  data definitions create a new type and are often used recursively
+--  synonym definition cannot be recursive - they are simply shorthanded
+--  and can always be expanded out (removed from the program)
