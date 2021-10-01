@@ -1,6 +1,7 @@
 module List where
 
 import Data.Char
+import Test.QuickCheck
 
 {-
 combine an arbitrary number of values (same type) into a single object.
@@ -117,11 +118,11 @@ createPrimeTuple n
   | isPrime n = (n, True)
   | otherwise = (n, False)
 
+--  [x | x <- getPrimeTuples 10 , snd x] = [(1,True),(2,True),(3,True),(5,True),(7,True)]
 getPrimeTuples :: Integer -> [(Integer, Bool)]
 getPrimeTuples 0 = []
 getPrimeTuples n = [createPrimeTuple x | x <- [1 .. n]]
 
---  [x | x <- getPrimeTuples 10 , snd x] = [(1,True),(2,True),(3,True),(5,True),(7,True)]
 matches :: Integer -> [Integer] -> [Integer]
 matches n xs = [x | x <- xs, x == n]
 
@@ -138,3 +139,93 @@ onSeperateLines (x:xs) =
   if null xs
     then x
     else x ++ ['\n'] ++ onSeperateLines xs
+
+duplicate :: String -> Integer -> String
+duplicate _ 0 = ""
+duplicate s 1 = s
+duplicate s n = s ++ duplicate s (n - 1)
+
+--  pushRight "abc" = "         abc"
+linelength = 12 :: Int
+
+pushRight :: String -> String
+pushRight s
+  | linelength <= 0 || linelength > 150 = error "linelength not in range."
+  | length s < linelength =
+    duplicate " " (toInteger (linelength - length s)) ++ s
+  | otherwise = s
+
+--  lib database example
+type Person = String
+
+type Book = String
+
+--  list of perso(Person,Book) pairs    --  ("Alice","B") :: Alice has
+--  borrowed the book called B.
+type Database = [(Person, Book)]
+
+exampleBase :: Database
+exampleBase =
+  [ ("Alice", "Tintin")
+  , ("Anna", "Little Women")
+  , ("Alice", "Asterix")
+  , ("Rory", "Tintin")
+  ]
+
+--  given a person, check what books got borrowed
+books :: Database -> Person -> [Book]
+books db pName = [book | (name, book) <- db, name == pName]
+
+--  given a book, find the borrowers - assumed there may be more than one
+--  copy of any book
+borrowers :: Database -> Book -> [Person]
+borrowers db bName = [name | (name, book) <- db, book == bName]
+
+--  given a book, find out wether it is borrowed
+borrowed :: Database -> Book -> Bool
+borrowed db bName = (not . null) [book | (name, book) <- db, book == bName]
+
+--  given a person, find out how many books that person borrowed
+numBorrowed :: Database -> Person -> Int
+numBorrowed db pName = length [book | (name, book) <- db, name == pName]
+
+--  loan a book to a person
+makeLoan :: Database -> Person -> Book -> Database
+makeLoan db pName bName = (pName, bName) : db
+
+--  return loaned book
+returnLoan :: Database -> Person -> Book -> Database
+returnLoan db pName bName = rmFstOcc db (pName, bName)
+  where
+    rmFstOcc :: Database -> (String, String) -> Database
+    rmFstOcc [] _ = []
+    rmFstOcc (x:xs) (pName, bName)
+      | fst x == pName && snd x == bName = xs
+      | otherwise = x : rmFstOcc xs (pName, bName)
+
+returnLoan2 :: Database -> Person -> Book -> Database
+returnLoan2 db pName bName = [pair | pair <- db, pair /= (pName, bName)]
+
+-- makeLoan [] "ya" "yeet" = [("ya","yeet")] 
+test1 :: Bool
+test1 = borrowed exampleBase "Asterix"
+
+test2 :: Database
+test2 = makeLoan exampleBase "Alice" "Rotten Romans"
+
+--  In ghci, 'it' is a name automatically bound to the result of the last
+--  expression you evaluated.
+--   test2
+--   makeLoan it "Rory" "Godzilla"
+--   returnLoan it "Alice" "Rotten Romans"
+--  loan bName to pName, then lookup the books loaned by pName and check
+prop_db1 :: Database -> Person -> Book -> Bool
+prop_db1 db pName bName = elem bName (books (makeLoan db pName bName) pName)
+
+--  if we return the loan of bName to pName and then check book loans for
+--  pName -> bName should not be in that list
+prop_db2 :: Database -> Person -> Book -> Bool
+prop_db2 db pName bName =
+  elem bName (books (returnLoan db pName bName) pName) == False
+-- isAlpha ch
+-- toUpper ch
