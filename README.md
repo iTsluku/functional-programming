@@ -14,9 +14,9 @@
 
 # Haskell
 1980s (first defined in 1990)  
-named after Haskell B. Curry - pioneer of the lambda calculus  
+named after Haskell B. Curry :: pioneer of the lambda calculus  
 general-purpose programming language  
-GHCi (Glasgow Haskell Compiler interactive) -- interpreter
+GHCi (Glasgow Haskell Compiler interactive) :: interpreter
 
 ## key aspects
 + rich collection of data types
@@ -42,7 +42,7 @@ used in writing expressions to be evaluated by the implementation
 ### types
 collection of values/ objects  
 model/represent objects in specific problem domains  
-~rule: Nouns)
+(~rule: nouns)
 
 ### definitions
 name :: type  
