@@ -21,7 +21,7 @@ check_value a = if a == 0 then "null"
 
 -- pattern matching (order!)
 divide :: (Eq a, Fractional a) => a -> a -> a
-divide _ 0 = error "Can't divide by 0" -- _ :: palceholder
+divide _ 0 = error "Can't divide by 0" -- _ :: placeholder
 divide a b = a/b
 
 -- guards
