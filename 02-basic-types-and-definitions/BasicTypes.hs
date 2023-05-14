@@ -289,7 +289,7 @@ prop_isZero x =
 
 {-
 #####   Syntax  #####
-offside-rule: write top-level definitions starting at the öeft-hand side of the page,
+offside-rule: write top-level definitions starting at the left-hand side of the page,
               within the script indent the start of each definition by a single 'tab'
 ;   'end' symbol    -   for one-liners
 
