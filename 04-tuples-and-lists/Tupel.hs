@@ -3,7 +3,7 @@ module Tupel where
 import Test.QuickCheck
 
 {-
-combine a fixed number of fixed types (might be dfferent) into a sigle object.
+combine a fixed number of fixed types (might be different) into a sigle object.
 
 pairs, triples, quadruples, quintuples, sextuples, ...
 -}
