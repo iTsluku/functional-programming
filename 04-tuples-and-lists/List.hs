@@ -14,7 +14,7 @@ type ShopItem = (String, Int)
 type Basket = [ShopItem]
 
 --  [("Salt: 1kg",69),("plain crisps",25)] :: Basket
---  type String = [Char]    --  special case of list type (synonyms fot the type which it names -- like ShopItem)
+--  type String = [Char]    --  special case of list type (synonyms for the type which it names -- like ShopItem)
 --  type introduces a definition of a type, not a value
 --  type names begin with capital letters
 l1 = [1, 2, 3, 4, 5] :: [Integer]
